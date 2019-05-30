@@ -1,12 +1,17 @@
 package guru.assignment.recipe.domain;
 
+import org.springframework.data.annotation.Id;
+
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
 
-@Data
-@EqualsAndHashCode(exclude = {"recipe"})
+@Getter
+@Setter
 public class Notes {
 
+	@Id
 	private String id;
 	
 	private Recipe recipe;

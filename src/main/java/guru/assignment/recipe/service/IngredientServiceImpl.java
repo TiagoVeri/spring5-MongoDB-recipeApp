@@ -85,7 +85,7 @@ public class IngredientServiceImpl implements IngredientService {
 			} else {
 				//add new Ingredient
 				Ingredient ingredient = ingredientCommandToIngredient.convert(command);
-				ingredient.setRecipe(recipe);
+//				ingredient.setRecipe(recipe);
 				recipe.addIngredient(ingredient);
 			}
 			
@@ -103,6 +103,10 @@ public class IngredientServiceImpl implements IngredientService {
 						.filter(recipeIngredients -> recipeIngredients.getUom().getId().equals(command.getUom().getId()))
 						.findFirst();
 			}
+			
+			//enhance with id value
+			IngredientCommand ingredientCommandSaved = ingredientToIngredientCommand.convert(savedIngredientOptional.get());
+			ingredientCommandSaved.setRecipeId(recipe.getId());
 			
 			return ingredientToIngredientCommand.convert(savedIngredientOptional.get());
 		}
@@ -131,7 +135,7 @@ public class IngredientServiceImpl implements IngredientService {
 				log.debug("found Ingredient");
 				
 				Ingredient ingredientToDelete = ingredientOptional.get();
-				ingredientToDelete.setRecipe(null);
+//				ingredientToDelete.setRecipe(null);
 				recipe.getIngredients().remove(ingredientOptional.get());
 				recipeRepository.save(recipe);
 			}
