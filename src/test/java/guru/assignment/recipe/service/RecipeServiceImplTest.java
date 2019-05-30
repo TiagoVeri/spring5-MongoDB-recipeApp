@@ -1,22 +1,17 @@
 package guru.assignment.recipe.service;
 
-import static org.hamcrest.CoreMatchers.any;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.mockito.ArgumentMatchers.anyLong;
-import static org.mockito.Mockito.never;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import org.junit.Before;
+import org.junit.Test;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
 
-import org.junit.Before;
-import org.junit.Test;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.mockito.Mockito.*;
 
 import guru.assignment.recipe.converters.RecipeCommandToRecipe;
 import guru.assignment.recipe.converters.RecipeToRecipeCommand;
@@ -48,15 +43,15 @@ public class RecipeServiceImplTest {
 	@Test
 	public void testGetRecipeById() throws Exception{
 		Recipe recipe = new Recipe();
-		recipe.setId(1L);
+		recipe.setId("1");
 		Optional<Recipe> recipeOptional = Optional.of(recipe);
 		
-		when(recipeRepository.findById(anyLong())).thenReturn(recipeOptional);
+		when(recipeRepository.findById(anyString())).thenReturn(recipeOptional);
 		
-		Recipe recipeReturned = recipeService.findById(1L);
+		Recipe recipeReturned = recipeService.findById("1");
 		
 		assertNotNull("Null recipe returned", recipeReturned);
-		verify(recipeRepository, times(1)).findById(anyLong());
+		verify(recipeRepository, times(1)).findById(anyString());
 		verify(recipeRepository, never()).findAll();
 		
 
@@ -67,9 +62,9 @@ public class RecipeServiceImplTest {
 	
 		Optional<Recipe> recipeOptional = Optional.empty();
 		
-		when (recipeRepository.findById(anyLong())).thenReturn(recipeOptional);
+		when (recipeRepository.findById(anyString())).thenReturn(recipeOptional);
 		
-		Recipe recipeReturned = recipeService.findById(1L);
+		Recipe recipeReturned = recipeService.findById("1");
 	}
 	
 	
@@ -95,7 +90,7 @@ public class RecipeServiceImplTest {
 	public void testDeleteById() throws Exception{
 		
 		//given
-		Long idToDelete = Long.valueOf(2L);
+		String idToDelete = "2";
 		
 		//when
 		recipeService.deleteById(idToDelete);
@@ -103,7 +98,7 @@ public class RecipeServiceImplTest {
 		//no 'when', since method has void return type
 		
 		//then
-		verify(recipeRepository, times(1)).deleteById(anyLong());
+		verify(recipeRepository, times(1)).deleteById(anyString());
 	}
 
 }

@@ -15,7 +15,7 @@ public class CategoryTest {
 	}
 	@Test
 	public void testGetId() throws Exception {
-		Long idValue = 4L;
+		String idValue = "4";
 		
 		category.setId(idValue);
 		

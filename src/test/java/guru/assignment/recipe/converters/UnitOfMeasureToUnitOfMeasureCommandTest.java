@@ -16,7 +16,7 @@ import guru.assignment.recipe.domain.UnitOfMeasure;
 public class UnitOfMeasureToUnitOfMeasureCommandTest {
 
     public static final String DESCRIPTION = "description";
-    public static final Long LONG_VALUE = new Long(1L);
+    public static final String LONG_VALUE = "1";
 
     UnitOfMeasureToUnitOfMeasureCommand converter;
 
