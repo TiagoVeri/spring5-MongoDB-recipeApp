@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.annotation.Profile;
 import org.springframework.context.event.ContextRefreshedEvent;
@@ -20,6 +21,7 @@ import guru.assignment.recipe.domain.UnitOfMeasure;
 import guru.assignment.recipe.repositories.CategoryRepository;
 import guru.assignment.recipe.repositories.RecipeRepository;
 import guru.assignment.recipe.repositories.UnitOfMeasureRepository;
+import guru.assignment.recipe.repositories.reactive.UnitOfMeasureReactiveRepository;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -29,6 +31,10 @@ public class RecipeBoostrap implements ApplicationListener<ContextRefreshedEvent
 	private final CategoryRepository categoryRepository;
 	private final RecipeRepository recipeRepository;
 	private final UnitOfMeasureRepository unitOfMeasureRepository;
+	
+	//for testing
+	@Autowired
+	UnitOfMeasureReactiveRepository reactiveRepository;
 	
 	public RecipeBoostrap(CategoryRepository categoryRepository, RecipeRepository recipeRepository,
 			UnitOfMeasureRepository unitOfMeasureRepository) {
@@ -44,6 +50,9 @@ public class RecipeBoostrap implements ApplicationListener<ContextRefreshedEvent
         loadUom();
         recipeRepository.saveAll(getRecipes());
         log.debug("Loading Bootstrap Data");
+        
+        log.error("#########");
+        log.error("Count: " + reactiveRepository.count().block().toString());
     }
 
     private void loadCategories(){
